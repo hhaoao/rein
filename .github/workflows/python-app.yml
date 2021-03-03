@@ -32,4 +32,7 @@ jobs:
       with:
         # Directory containing source code (optional requirements.txt).
         path: src
-
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-app
+        path: dist/windows
