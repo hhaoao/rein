@@ -22,8 +22,9 @@ def download(package_path):
     package_json.load(package_path)
     urls = package_json.get_url(architecture)
     urls = [i for i in urls if not pattern.match(i)]
-    print(urls)
-    # reindownload.ReinDownload.add_urls(urls)
+    # print(urls)
+    package_download.add_urls(urls)
+
 
 def get_info(package):
     package_path = package[1]
@@ -69,12 +70,19 @@ if __name__ == "__main__":
     state = [ buckets_storage(i) for i in buckets_path ]
 
     if args.download:
-        target_packages = [ x for j in args.download for x in datase.query(j) ]
-        aa = datase.conn.execute('SELECT * FROM manager')
+        target_packages, not_packages = [], []
+        for j in args.download:
+            if datase.query(j):
+                target_packages.append(j)
+            else:
+                not_packages.append(j)
 
-        # for i in target_packages:
-        for i in aa:
+        # aa = datase.conn.execute('SELECT * FROM manager')
+        # for i in aa:
+        for i in target_packages:
             download(i[1])
+        if not_packages:
+            print("sent failed !!!\n", not_packages)
 
     if args.search:
         target_packages = [ x for j in args.search for x in datase.query_regex(j) ]
