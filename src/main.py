@@ -1,4 +1,5 @@
 from pathlib import Path
+import sys
 import re
 
 from lib import (
@@ -48,7 +49,8 @@ if __name__ == "__main__":
     package_download = reindownload.ReinDownload()
     pattern = re.compile(".*\.(reg|ico)$")
 
-    config = reinini.read_ini('rein.ini')
+    rein_ini_path = Path(sys.argv[0]).parent / 'rein.ini'
+    config = reinini.read_ini(str(rein_ini_path))
     architecture = config['rein']['architecture'] + "bit"
     buckets_path_file = config['rein']['buckets']
     
