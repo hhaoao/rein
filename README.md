@@ -32,10 +32,10 @@ rein.ini
 
 1. Modify `rein.ini`.
 
-2. rein.exe: Command line tool. see more `--help`
+1. rein.exe: Command line tool. see more `--help`
 
   > rein.exe --download 7zip aria2
 
-3. rein.ini: Configuration file.
+1. rein.ini: Configuration file.
 
 
