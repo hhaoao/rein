@@ -11,12 +11,15 @@ class ReinDownload:
         self.client = aria2p.Client(
             host="http://localhost",
             port=6800,
-            secret=""
+            secret="rein"
         )
 
         self.aria2 = aria2p.API(
             self.client
         )
+
+    def get_version(self):
+        return self.client.get_version()
 
     def add_urls(self, url=[]):
         self.aria2.add_uris(url)

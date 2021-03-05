@@ -1,4 +1,5 @@
 from pathlib import Path
+import subprocess
 import sys
 import re
 
@@ -41,19 +42,37 @@ def get_info(package):
         description = package_json.info["homepage"]
     return p, version, description
 
+def check_dependency():
+    aria2p_result = package_download.get_version()
+    git_version = subprocess.check_output(["git", "--version"]).strip().decode()
+    print("aria2c ", aria2p_result['version'], "&&" , git_version)
+    print("================================")
+
 
 if __name__ == "__main__":
-    args = reinparse.rein_arg_parse()
 
     package_json = reinjson.ReinJson()
-
-    package_download = reindownload.ReinDownload()
-    pattern = re.compile(".*\.(reg|ico)$")
 
     rein_ini_path = Path(sys.argv[0]).parent / 'rein.ini'
     config = reinini.read_ini(str(rein_ini_path))
     architecture = config['rein']['architecture'] + "bit"
     buckets_path_file = config['rein']['buckets']
+
+    package_download = reindownload.ReinDownload()
+    package_download.client = reindownload.aria2p.Client(
+            host=config['aria2p']['host'],
+            port=config['aria2p']['port'],
+            secret=config['aria2p']['rpc-secret']
+        )
+    package_download.aria2 = reindownload.aria2p.API(
+            package_download.client
+        )
+    pattern = re.compile(".*\.(reg|ico)$")
+
+
+    # check 
+    check_dependency()
+
     
     buckets_path = reinpath.find_bucket_path(buckets_path_file)
     git_root_path = reinpath.search_just(files_glob='*/.git')
@@ -61,9 +80,12 @@ if __name__ == "__main__":
     datase = reindatabases.sqlite()
     datase.create_table()
 
+    args = reinparse.rein_arg_parse()
+
     if args.updata:
         for x in git_root_path:
-            pull_info = reingit.update_force(str(x.parent))
+            my_git = reingit.MyGit(str(x.parent))
+            pull_info = my_git.update_force()
             print(pull_info)
 
     # 入库

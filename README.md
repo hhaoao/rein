@@ -2,14 +2,16 @@
 Software package download tool
 
 # System requirements
-only windows
+
+only windows 7 or later.
 
 # dependence
-(aria2)[https://aria2.github.io]: Must be turned on JSON RPC.
 
-(git)[https://gitforwindows.org]: Used for update.
+*. (aria2)[https://aria2.github.io]: Must be turned on JSON RPC.
 
-(scoop's buckects)[https://github.com/lukesampson/scoop/blob/master/buckets.json]:
+*. (git)[https://gitforwindows.org]: Used for update.
+
+*. (scoop's buckects)[https://github.com/lukesampson/scoop/blob/master/buckets.json]:
 
 download Main bucket.
 
@@ -26,6 +28,9 @@ rein.ini
 1. aria2 config.
   The configured files are in `aria2config`.
 
+1. Modify path, proxy, etc in `*.conf` .
+
+1. Modify `rein.ini`.
 
 2. rein.exe: Command line tool. see more `--help`
 
