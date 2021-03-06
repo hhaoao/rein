@@ -75,7 +75,7 @@ if __name__ == "__main__":
 
     
     buckets_path = reinpath.find_bucket_path(buckets_path_file)
-    git_root_path = reinpath.search_just(files_glob='*/.git')
+    git_root_path = reinpath.search_just(directory=buckets_path_file, files_glob='*/.git')
     
     datase = reindatabases.sqlite()
     datase.create_table()
@@ -85,8 +85,9 @@ if __name__ == "__main__":
     if args.updata:
         for x in git_root_path:
             my_git = reingit.MyGit(str(x.parent))
-            pull_info = my_git.update_force()
+            pull_info = my_git.update_force(config)
             print(pull_info)
+
 
     # 入库
     state = [ buckets_storage(i) for i in buckets_path ]
