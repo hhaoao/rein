@@ -1,3 +1,4 @@
+import random
 import json
 import chardet
 from jsonpath_ng import jsonpath, parse
@@ -36,7 +37,8 @@ class ReinJson:
         if isinstance(url, list):
             # 无预处理则取第一个连接 有预处理(辅助文件)则全部下载
             if not "pre_install" in self.info:
-                url = [ url[0] ]
+                random_url = random.choice(url)
+                url = [ random_url ]
         else:
             url = [ url ]
 

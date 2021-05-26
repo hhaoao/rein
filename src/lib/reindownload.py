@@ -24,3 +24,7 @@ class ReinDownload:
     def add_urls(self, url=[]):
         self.aria2.add_uris(url)
 
+    def tell_status(self):
+        gid = self.client.tell_active(keys=["gid"])[0]['gid']
+        status = self.client.tell_status(gid, keys=['status'])['status']
+        return status

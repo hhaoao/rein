@@ -23,8 +23,10 @@ def download(package_path):
     package_json.load(package_path)
     urls = package_json.get_url(architecture)
     urls = [i for i in urls if not pattern.match(i)]
-    # print(urls)
+    print("download list:", urls)
     package_download.add_urls(urls)
+    status = package_download.tell_status()
+    # print(status)
 
 
 def get_info(package):
@@ -90,20 +92,25 @@ if __name__ == "__main__":
 
 
     # 入库
+
+    # if ("/" in j) and ("\\" in j)
     state = [ buckets_storage(i) for i in buckets_path ]
+    experiment_buckets_list = reinini.to_list(config['rein']['experiment'])
+    state = [buckets_storage(j) for j in experiment_buckets_list]
 
     if args.download:
         target_packages, not_packages = [], []
         for j in args.download:
-            if datase.query(j):
-                target_packages.append(j)
+            result = datase.query(j)
+            if result:
+                target_packages.append(result)
             else:
                 not_packages.append(j)
 
         # aa = datase.conn.execute('SELECT * FROM manager')
         # for i in aa:
         for i in target_packages:
-            download(i[1])
+            download(i[0][1])
         if not_packages:
             print("sent failed !!!\n", not_packages)
 

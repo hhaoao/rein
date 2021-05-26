@@ -7,13 +7,13 @@ only windows 7 or later.
 
 # dependence
 
-*. (aria2)[https://aria2.github.io]: Must be turned on JSON RPC.
+- *. (aria2)[https://aria2.github.io]: Must be turned on JSON RPC.
 
-*. (git)[https://gitforwindows.org]: Used for update.
+- . (git)[https://gitforwindows.org]: Used for update.
 
-*. (scoop's buckects)[https://github.com/lukesampson/scoop/blob/master/buckets.json]:
+- . (scoop's buckects)[https://github.com/lukesampson/scoop/blob/master/buckets.json]:
 
-download Main bucket.
+download bucket. (For example: Main bucket)
 
 >cd C:\Users\Administrator\Documents\
 >mkdir buckets && cd buckets
@@ -37,5 +37,13 @@ rein.ini
   > rein.exe --download 7zip aria2
 
 1. rein.ini: Configuration file.
+
+# issues
+
+A bucket contains multiple directories.
+> rein download {bucket}/{app} (https://github.com/chawyehsu/dorado/issues/27)
+
+
+
 
 
