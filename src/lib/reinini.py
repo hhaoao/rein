@@ -12,6 +12,7 @@ def read_ini(path):
 
 def to_list(config_key):
     p = str(Path(config_key))
+    p_win = p.replace('\\', '\\\\')
     new_list = json.loads(p)
     return new_list
 
